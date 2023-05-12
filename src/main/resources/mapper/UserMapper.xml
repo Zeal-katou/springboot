@@ -1,0 +1,44 @@
+<mapper namespace="cn.yunji.user.management2.mapper.UserMapper"> <!-- 定义一个mapper映射文件，指定命名空间为UserMapper接口的全限定名。 -->
+
+    <!-- 定义一个结果映射对象，用于将数据库中的字段映射到User类中的属性。 -->
+    <resultMap id="userMap" type="com.example.usermanagement.model.User">
+        <id column="id" property="id"/> <!-- 将id字段映射到id属性，并标注为主键。 -->
+        <result column="username" property="username"/> <!-- 将username字段映射到username属性。 -->
+        <result column="password" property="password"/> <!-- 将password字段映射到password属性。 -->
+        <result column="role" property="role"/> <!-- 将role字段映射到role属性。 -->
+    </resultMap>
+
+    <!-- 定义一个登录方法的sql语句，用于根据用户名和密码查询用户对象。 -->
+    <select id="login" parameterType="map" resultMap="userMap"> <!-- 指定该sql语句的id为login，与UserMapper接口中的login方法对应。指定参数类型为map，表示可以传入多个参数。指定结果映射对象为userMap。 -->
+        select * from user where username = #{username} and password = #{password} <!-- 编写sql语句，使用#{参数名}来引用参数值。 -->
+    </select>
+    <!-- 定义一个查询所有用户方法的sql语句，用于查询用户列表。 -->
+    <select id="findAll" resultMap="userMap"> <!-- 指定该sql语句的id为findAll，与UserMapper接口中的findAll方法对应。指定结果映射对象为userMap。 -->
+        select * from user <!-- 编写sql语句，查询user表中的所有数据。 -->
+    </select>
+
+    <!-- 定义一个添加用户方法的sql语句，用于向user表中插入一条数据。 -->
+    <insert id="add" parameterType="com.example.usermanagement.model.User" useGeneratedKeys="true" keyProperty="id"> <!-- 指定该sql语句的id为add，与UserMapper接口中的add方法对应。指定参数类型为User类，表示可以传入一个User对象。指定使用自动生成的主键值，将主键属性设置为id。 -->
+        insert into user (username, password, role) values (#{username}, #{password}, #{role}) <!-- 编写sql语句，使用#{属性名}来引用User对象中的属性值。 -->
+    </insert>
+
+    <!-- 定义一个删除用户方法的sql语句，用于从user表中删除一条数据。 -->
+    <delete id="delete" parameterType="int"> <!-- 指定该sql语句的id为delete，与UserMapper接口中的delete方法对应。指定参数类型为int，表示可以传入一个整数值。 -->
+        delete from user where id = #{id} <!-- 编写sql语句，使用#{参数名}来引用参数值。 -->
+    </delete>
+
+    <!-- 定义一个更新用户方法的sql语句，用于更新user表中的一条数据。 -->
+    <update id="update" parameterType="com.example.usermanagement.model.User"> <!-- 指定该sql语句的id为update，与UserMapper接口中的update方法对应。指定参数类型为User类，表示可以传入一个User对象。 -->
+        update user set username = #{username}, password = #{password}, role = #{role} where id = #{id} <!-- 编写sql语句，使用#{属性名}来引用User对象中的属性值。 -->
+    </update>
+
+    <!-- 定义一个根据id查询用户方法的sql语句，用于根据id查询用户对象。 -->
+    <select id="findById" parameterType="int" resultMap="userMap"> <!-- 指定该sql语句的id为findById，与UserMapper接口中的findById方法对应。指定参数类型为int，表示可以传入一个整数值。指定结果映射对象为userMap。 -->
+        select * from user where id = #{id} <!-- 编写sql语句，使用#{参数名}来引用参数值。 -->
+    </select>
+
+    <!-- 定义一个根据名字模糊查询用户方法的sql语句，用于根据名字查询用户列表。 -->
+    <select id="findByName" parameterType="string" resultMap="userMap"> <!-- 指定该sql语句的id为findByName，与UserMapper接口中的findByName方法对应。指定参数类型为string，表示可以传入一个字符串值。指定结果映射对象为userMap。 -->
+        select * from user where username like concat('%', #{name}, '%') <!-- 编写sql语句，使用#{参数名}来引用参数值，并使用concat函数和通配符%来拼接模糊匹配条件。 -->
+    </select>
+</mapper>

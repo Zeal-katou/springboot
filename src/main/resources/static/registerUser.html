@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        nav {
+            background-color: #1976d2;
+        }
+        nav a {
+            color: #fff;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .input-field label {
+            color: #1976d2;
+        }
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid #1976d2;
+            box-shadow: 0 1px 0 0 #1976d2;
+        }
+        .input-field input[type=password]:focus {
+            border-bottom: 1px solid #1976d2;
+            box-shadow: 0 1px 0 0 #1976d2;
+        }
+        .btn {
+            background-color: #1976d2;
+        }
+        .btn:hover {
+            background-color: #1565c0;
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper container">
+        <a href="#" class="brand-logo">MyWeb</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h3 class="center-align">用户注册</h3>
+    <div class="row">
+        <form class="col s12" action="/myweb/registerUser" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" type="text" name="username" required>
+                    <label for="username">用户名</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" name="password" required>
+                    <label for="password">密码</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="hidden" name="role" value="1">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        &copy; 2021 MyWeb. All rights reserved.
+        <a href="#">隐私政策</a>
+        <a href="#">使用条款</a>
+    </div>
+</footer>
+<script src="https://cdn.bootcdn.net/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script> // 初始化下拉框
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+});
+</script>
+</body>
+
+</html>

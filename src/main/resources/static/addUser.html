@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        form, label, input, select {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        input[type="text"], input[type="password"], select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        input[type="submit"] {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>添加用户</h1>
+<form action="/myweb/addUser" method="post">
+    <label for="username">用户名：</label>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">密码：</label>
+    <input type="password" id="password" name="password"><br>
+    <label for="role">角色：</label>
+    <!-- 添加用于选择角色的选择元素 -->
+    <select id="role" name="role">
+        <!-- 将选项的值和文本更改为英文 -->
+        <option value="0" selected>Admin</option>
+        <option value="1">User</option>
+    </select><br>
+    <input type="submit" value="Add User">
+</form>
+</body>
+</html>

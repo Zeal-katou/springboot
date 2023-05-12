@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员管理</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        nav {
+            background-color: #1976d2;
+        }
+        nav a {
+            color: #fff;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .input-field label {
+            color: #1976d2;
+        }
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid #1976d2;
+            box-shadow: 0 1px 0 0 #1976d2;
+        }
+        .input-field input[type=password]:focus {
+            border-bottom: 1px solid #1976d2;
+            box-shadow: 0 1px 0 0 #1976d2;
+        }
+        .btn {
+            background-color: #1976d2;
+        }
+        .btn:hover {
+            background-color: #1565c0;
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #ddd;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            display: inline-block;
+            background-color: #1976d2;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper container">
+        <a href="#" class="brand-logo">MyWeb</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h3 class="center-align">管理员管理</h3>
+    <div class="row">
+        <form class="col s12" action="/myweb/search" method="get">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="keyword" type="text" name="keyword" placeholder="请输入查询名称">
+                    <label for="keyword">搜索</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table id="dataTable" border="1" th:fragment="dataTable">
+        <tr>
+            <th>id</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>操作</th>
+        </tr>
+        <!--遍历users的用户列表，并将当前用户的信息存储在变量u中-->
+        <tr th:each="u:${users}">
+            <!--解析为当前用户的ID，并将其输出到一个<td>标签-->
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.password}"></td>
+            <!--检查当前用户的角色是否为管理员-->
+            <td th:if="${userRole==0}">
+                <a th:href="@{/myweb/delete(id=${u.id})}">删除</a>
+                <a th:href="@{/myweb/update.html(id=${u.id})}">修改信息</a>
+            </td>
+            <td th:if="${userRole==1}">
+                您仅有查看权限
+            </td>
+        </tr>
+    </table>
+    <!--增加权限,判断是否为管理员-->
+    <a th:if="${userRole==0}" href="/myweb/addUser.html">增加用户</a>
+
+    <a href="/myweb/deleteAll">清空登录信息</a>
+    </div>
+
+<footer>
+
+    <div class="container">
+
+        &copy; 2021 MyWeb. All rights reserved.
+
+        <a href="#">隐私政策</a>
+
+        <a href="#">使用条款</a>
+
+    </div>
+
+</footer>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>
